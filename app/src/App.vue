@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
@@ -13,11 +12,9 @@ import HelloWorld from './components/HelloWorld.vue'
       height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/register">Register</RouterLink>
       </nav>
     </div>
   </header>
@@ -44,7 +41,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: rgb(81, 255, 90);
 }
 
 nav a.router-link-exact-active:hover {
@@ -52,6 +49,7 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
+  color: grey;
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);

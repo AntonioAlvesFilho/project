@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use app\Models\Todo;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -21,6 +23,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+				'genero',
+				'data_nascimento',
     ];
 
     /**
@@ -30,7 +34,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -41,7 +44,6 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-		use Notifiable;
 
     // Rest omitted for brevity
 
@@ -64,4 +66,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+		public function todos() {
+			return $this->hasMany(Todo::class);
+		}
 }
