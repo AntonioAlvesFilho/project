@@ -11,7 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
       width="125"
       height="125" />
 
-    <div class="wrapper">
+    <div class="wrapper mb-4">
       <nav>
         <RouterLink to="/login">Login</RouterLink>
         <RouterLink to="/register">Register</RouterLink>
@@ -21,6 +21,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
   <RouterView />
 </template>
+
+<script>
+export default {
+	
+}
+</script>
 
 <style scoped>
 header {
