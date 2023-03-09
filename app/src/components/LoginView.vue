@@ -43,6 +43,7 @@
 
 <script>
 import axios from 'axios'
+import Cookie from 'js-cookie'
 export default {
   name: 'Login',
   data() {
@@ -52,14 +53,23 @@ export default {
     }
   },
   methods: {
-    login() {
+    async login() {
       const payload = {
         email: this.email,
         password: this.password
       }
-      this.axios.post('api/auth/login', payload).then((response) => {
-        console.log(response)
-      })
+      try {
+        await axios
+          .post('http://127.0.0.1:8000/api/auth/login', payload)
+          .then((response) => {
+            console.log(response)
+            const token = `${response.data.token_type}/${response.data.access_token}`
+            Cookie.set('token_todo', token, { expires: 30 })
+            this.$store.commit('STORE_USER', response.data.data)
+          })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
