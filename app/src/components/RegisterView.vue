@@ -86,6 +86,10 @@
           placeholder="Confirm Password" />
       </div>
 
+					<!-- password plus confirm password, moron  -->
+			<Field name="password" type="password" />
+  <Field name="confirmation" type="password" rules="confirmed:@password" />
+
       <button class="w-100 btn btn-lg btn-primary" type="submit">
         Sign Up
       </button>
