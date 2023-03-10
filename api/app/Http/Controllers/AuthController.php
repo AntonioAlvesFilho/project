@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use App\Http\Requests\AuthLoginRequest; 
+use App\Http\Requests\AuthRegisterRequest; 
 use App\Http\Resources\UserResource; 
 
 class AuthController extends Controller
@@ -32,8 +33,35 @@ class AuthController extends Controller
 			return (new UserResource(auth()->user()))->additional($token);
 		}
 
+
+		public function register(AuthRegisterRequest $request) {
+			
+			$input = $request->validated();
+			$user = $this->authService->register($input['name'], $input['email'],$input['data_nascimento'], $input['genero'], $input['password']);
+			return new UserResource($user);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
-     * Get the authenticated User.
+     * Get the actual authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse
      */

@@ -1,35 +1,18 @@
-# app
+Meu projeto VueJs
 
-This template should help get you started developing with Vue 3 in Vite.
+instalações mais relevantes pro projeto
 
-## Recommended IDE Setup
+    axios
+    bootstrap-vue
+    js-cookie
+    vee-validate
+		eslint + Prettier
+    vite
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+1 Configurar o ESlint com Prettier
 
-## Customize configuration
+2 Instalar o Bootstrap para o vue 3
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+3 criar uma tela de login guardando os dados do login com Vuex onde eu possa fazer a validação usando Axios para a api(laravel) usando um formulário da biblioteca Vee-Validate, que informa os campos requeridos e permite diminuir as requisições preenchidas incorretamente para poupar processamento da api.
 
-## Project Setup
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
