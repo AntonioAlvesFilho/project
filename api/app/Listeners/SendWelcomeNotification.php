@@ -5,6 +5,9 @@ namespace App\Listeners;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\UserRegistered;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeEmail;
+
 class SendWelcomeNotification
 {
     /**
@@ -20,6 +23,6 @@ class SendWelcomeNotification
      */
     public function handle(UserRegistered $event): void
     {
-        dd($event);
+        Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
     }
 }
