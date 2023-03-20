@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 
 class WelcomeEmail extends Mailable
 {
@@ -29,7 +30,7 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bem vindo ao teste',
+            subject: 'Protótipo de automação de envio de E-mail',
         );
     }
 
@@ -38,9 +39,14 @@ class WelcomeEmail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'emails.email',
-        )
+			return new Content(
+				view: 'emails.email',
+				with: [
+				'verifyEmailLink'=>config('app.url') . '/api/auth/verify-email?token=' . $this->user->confirmation_token
+				]
+			
+		);
+
     }
 
     /**

@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
 						$table->String('label');
 						$table->boolean('completed')->default(false);
+						$table->unsignedBigInteger('todo_id');
 						$table->foreign('todo_id')
 							->references('id')
 							->on('todos')
 							->onUpdate('CASCADE')
 							->onDelete('CASCADE');
-						$table->unsignedBigInteger('todo_id');
             $table->timestamps();
         });
     }

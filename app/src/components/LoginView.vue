@@ -2,7 +2,7 @@
   <main class="form-signin w-100 m-auto">
     <h1 class="h3 mb-4 fw-normal text-center">Please sign in</h1>
 
-    <Form ref="loginValidate" v-on:submit="login()" :validation-schema="schema">
+    <Form ref="loginValidate" v-on:submit="login()">
       <div class="form-floating mb-3 align-center">
         <label name="email" for="floatingInput">Email address</label>
 
@@ -112,16 +112,16 @@ export default {
         //reset error message to see clearly if it refresh on login click
         this.resetErrorMessage()
         axios
-				//posting payload to api and waiting for response
-          .post('http://127.0.0.1:8000/api/auth/login', payload) 
+          //posting payload to api and waiting for response
+          .post('http://127.0.0.1:8000/api/auth/login', payload)
           .then((response) => {
-						//getting JWT Token from api
+            //getting JWT Token from api
             const token = `${response.data.token_type}/${response.data.access_token}`
-						//setting js-Cookie to insert JWT Token as a cookie in browser
+            //setting js-Cookie to insert JWT Token as a cookie in browser
             Cookie.set('token_todo', token, { expires: 30 })
-						// sending the api response, with the user data like name, id, genre ETC. to vuex to show on front end
+            // sending the api response, with the user data like name, id, genre ETC. to vuex to show on front end
             this.$store.commit('STORE_USER', response.data.data)
-						//Stop img-loading show
+            //Stop img-loading show
             this.loading.running = false
           })
           .catch((error) => {
@@ -137,7 +137,7 @@ export default {
     },
 
     resetErrorMessage() {
-      (this.loginResponse.color = ''), (this.loginResponse.message = '')
+      ;(this.loginResponse.color = ''), (this.loginResponse.message = '')
       return
     }
   }

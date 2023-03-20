@@ -24,6 +24,7 @@ Route::group([
 
 	Route::post('login', [AuthController::class, 'login']);
 	Route::post('register', [AuthController::class, 'register']);
+	Route::get('verify-email', [AuthController::class, 'VerifyEmail']);
 	
 	
 	

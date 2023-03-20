@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use App\Http\Requests\AuthLoginRequest; 
 use App\Http\Requests\AuthRegisterRequest; 
+use App\Http\Requests\AuthVerifyRequest; 
 use App\Http\Resources\UserResource; 
 
 class AuthController extends Controller
@@ -37,8 +38,19 @@ class AuthController extends Controller
 		public function register(AuthRegisterRequest $request) {
 			
 			$input = $request->validated();
-			$user = $this->authService->register($input['name'], $input['email'],$input['data_nascimento'], $input['genero'], $input['password']);
+			$user = $this->authService->register($input['name'], $input['email'],$input['data_nascimento'], $input['genero'], $input['password'], 'confirmation_token');
 			return new UserResource($user);
+		}
+
+		public function VerifyEmail(AuthVerifyRequest $request) {
+
+			$input = $request->validated();
+			$user = $this->authService->VerifyEmail($input['token']);
+
+			new UserResource($user);
+			
+			return redirect('/').with('message', 'Email verificado com sucesso');
+
 		}
 
 

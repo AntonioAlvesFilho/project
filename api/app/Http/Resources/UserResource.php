@@ -21,6 +21,7 @@ class UserResource extends JsonResource
 					'genero' => (string)$this->genero,
 					'email' => (string)$this->email,
 					'created_at' => (string)$this->created_at,
+					'confirmation_token' => (string)$this->confirmation_token,
 				];
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use app\Models\Todo;
+use App\Models\Todo;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
 				'genero',
 				'data_nascimento',
+				'confirmation_token',
     ];
 
     /**

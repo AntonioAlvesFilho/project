@@ -1,8 +1,18 @@
 import { defineRule } from 'vee-validate'
-import { required, email, min } from '@vee-validate/rules'
+import {
+  required,
+  email,
+  min,
+  max,
+  confirmed,
+  alpha_spaces
+} from '@vee-validate/rules'
 defineRule('required', required)
 defineRule('email', email)
 defineRule('min', min)
+defineRule('max', max)
+defineRule('alpha_spaces', alpha_spaces)
+defineRule('confirmed', confirmed)
 
 //o Tiago matos fez o tutorial usando uma versão antiga da biblioteca,
 //o jeito foi improvisar e tentar importar com a nova sintaxe e torçer

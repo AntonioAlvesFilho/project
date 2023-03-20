@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Exceptions\LoginInvalidException;
 use App\Exceptions\EmailAlreadyInUseException;
+use App\Exceptions\VerifyEmailTokenInvalidException;
 
 class AuthService
 {
@@ -36,6 +37,7 @@ class AuthService
 		}
 		
 		$userPassword = bcrypt($password ?? Str::random(10));
+
 	
 		$user = User::Create([
 			'name' => $name,
@@ -43,17 +45,28 @@ class AuthService
 			'data_nascimento' => $data_nascimento,
 			'genero' => $genero,
 			'password' => $userPassword,
-			'confirmation_token' => Str::random(60)
+			'confirmation_token' => Str::random(30)
 		]);
 
 		event(new UserRegistered($user));
 
 		return $user;
+	}
+
+	public function VerifyEmail(String $token) {
+		$user = User::where('confirmation_token', $token)->first();
+		if (empty($user)) {
+			throw new VerifyEmailTokenInvalidException();
+		}
+		
+		$user->confirmation_token = 'already_verified';
+		$user->email_verified_at = now();
+		$user->save();
+
+		return $user;
 
 
 	}
-
-
 
 
 }
