@@ -3,11 +3,16 @@
 namespace App\Services;
 
 use App\Events\UserRegistered;
+use App\Events\ForgotPassword;
 use App\Models\User;
+use App\Models\PasswordReset;
 use Illuminate\Support\Str;
 use App\Exceptions\LoginInvalidException;
 use App\Exceptions\EmailAlreadyInUseException;
 use App\Exceptions\VerifyEmailTokenInvalidException;
+use App\Exceptions\ResetPasswordTokenInvalidException;
+use App\Exceptions\ForgotPasswordRequestExistsException;
+use App\Exceptions\ForgotPasswordEmailNotExistsException;
 
 class AuthService
 {
@@ -68,5 +73,48 @@ class AuthService
 
 	}
 
+	public function forgotPassword(string $email) {
+
+		$user = User::where('email', $email)->firstOrFail();
+		$token = Str::random(60);
+		
+		$checkIfExistsBeforeCreate = PasswordReset::where('email', $email)->exists();
+		
+		if ($checkIfExistsBeforeCreate) {
+			throw new ForgotPasswordRequestExistsException();
+		}
+
+		if (!$user) {
+			throw new ForgotPasswordEmailNotExistsException();
+		}
+		
+		PasswordReset::create([
+			'email' => $user->email,
+			'token' => $token,
+		]);
+
+		
+
+		event(new ForgotPassword($user, $token));
+		return response('success', 202);
+	}
+
+	public function resetPassword(string $email, string $password, string $token) {
+
+			$passReset = PasswordReset::where('email', $email)->where('token', $token)->firstOrFail();
+			if (empty($passReset)) {
+				throw new ResetPasswordTokenInvalidException();
+
+			}
+			$user = User::where('email', $passReset->email)->firstOrFail();
+			$user->password = $password;
+			$user->save();
+
+			PasswordReset::where('email', $passReset->email)->delete();
+
+			event(new ForgotPassword($user, $token));
+
+			return response('success', 202);
+	}
 
 }

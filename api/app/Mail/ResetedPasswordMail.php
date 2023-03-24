@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,17 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeEmail extends Mailable
+class ResetedPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
-		public $user;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        //
     }
 
     /**
@@ -29,7 +27,7 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Protótipo de automação de envio de E-mail',
+            subject: 'Password reseted successfully',
         );
     }
 
@@ -38,13 +36,12 @@ class WelcomeEmail extends Mailable
      */
     public function content(): Content
     {
-			return new Content(
-				view: 'emails.email',
-				with: [
-				'verifyEmailLink'=>config('app.url') . '/api/auth/verify-email?token=' . $this->user->confirmation_token
-				]
-		);
-
+        return new Content(
+					view: 'emails.resetedPassword'
+					with: [
+						'teste' => $user
+					]
+        );
     }
 
     /**
@@ -54,8 +51,6 @@ class WelcomeEmail extends Mailable
      */
     public function attachments(): array
     {
-        return [
-					
-				];
+        return [];
     }
 }

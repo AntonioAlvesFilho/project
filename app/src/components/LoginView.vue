@@ -87,6 +87,7 @@ export default {
 
   methods: {
     login() {
+      this.resetErrorMessage()
       //replace the "login" with a loading img
       this.loading.running = true
       //delay setted for visualization
@@ -110,7 +111,7 @@ export default {
         }
 
         //reset error message to see clearly if it refresh on login click
-        this.resetErrorMessage()
+
         axios
           //posting payload to api and waiting for response
           .post('http://127.0.0.1:8000/api/auth/login', payload)
@@ -137,8 +138,7 @@ export default {
     },
 
     resetErrorMessage() {
-      ;(this.loginResponse.color = ''), (this.loginResponse.message = '')
-      return
+      return (this.loginResponse.message = '')
     }
   }
 }

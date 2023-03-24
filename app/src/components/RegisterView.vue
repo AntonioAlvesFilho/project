@@ -29,19 +29,36 @@
         <ErrorMessage class="errorText" name="email"></ErrorMessage>
       </div>
 
-      <div class="form-floating">
+      <div class="g-3">
         <label class="" for="date">Date of Birth</label>
-        <div class="form-floating mb-3">
+        <div class="d-flex mb-3">
           <Field
-            max="01-01-1910"
-            name="date"
-            rules="required|max:10"
-            v-model="date"
-            class="form-control"
-            type="date"
-            id="date" />
-          <br />
-          <ErrorMessage class="errorText" name="date"></ErrorMessage>
+            name="day"
+            rules="required|length:2|max_value:31|min_value:1"
+            v-model="day"
+            class="form-control col-md-1 text-center"
+            type="number"
+            id="day" />
+          /
+          <Field
+            name="mouth"
+            rules="required|length:2|max_value:12|min_value:1"
+            v-model="mouth"
+            class="form-control col-md-1 text-center"
+            type="number"
+            id="mouth" />
+          /
+          <Field
+            name="year"
+            rules="required|length:4|max_value:2005|min_value:1910"
+            v-model="year"
+            class="form-control col-md-1 text-center"
+            type="number"
+            id="year" />
+
+          <ErrorMessage class="errorText" name="day"></ErrorMessage>
+          <ErrorMessage class="errorText" name="mouth"></ErrorMessage>
+          <ErrorMessage class="errorText" name="year"></ErrorMessage>
         </div>
       </div>
 
@@ -50,7 +67,12 @@
 
         <p class="control">
           <label class="radio m-1">
-            <Field name="gender" rules="required" value="1" type="radio" />
+            <Field
+              name="gender"
+              v-model="genero"
+              rules="required"
+              value="1"
+              type="radio" />
             Male
           </label>
 
@@ -120,7 +142,9 @@ export default {
     return {
       name: '',
       email: '',
-      date: '',
+      year: '',
+      mouth: '',
+      day: '',
       genero: '',
       password: '',
       passwordConfirmation: '',
@@ -132,7 +156,7 @@ export default {
 
   methods: {
     register() {
-      this.loading.running = 1
+      this.loading.running = true
       setTimeout(() => {
         try {
           const validator = this.$refs.registerForm.validate()
@@ -147,7 +171,7 @@ export default {
         const payload = {
           name: this.name,
           email: this.email,
-          data_nascimento: this.date,
+          data_nascimento: this.year + '-' + this.mouth + '-' + this.day,
           genero: this.genero,
           password: this.password
         }
@@ -155,9 +179,11 @@ export default {
         axios
           .post('http://127.0.0.1:8000/api/auth/register', payload)
           .then(() => {})
-          .catch(() => {})
+          .catch((error) => {
+            console.log(error)
+          })
+          .finally((this.loading.running = false))
       }, 1500)
-      this.loading.running = false
     }
   }
 }
@@ -166,5 +192,16 @@ export default {
 <style>
 .errorText {
   color: red;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
 }
 </style>

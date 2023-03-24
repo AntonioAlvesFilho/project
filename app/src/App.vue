@@ -15,6 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/login">Login</RouterLink>
         <RouterLink to="/register">Register</RouterLink>
+        <RouterLink to="/forgot-password">Forgot Password</RouterLink>
       </nav>
     </div>
   </header>
@@ -23,9 +24,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script>
-export default {
-	
-}
+export default {}
 </script>
 
 <style scoped>

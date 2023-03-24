@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Str;
+use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use App\Http\Requests\AuthLoginRequest; 
+use App\Http\Requests\AuthForgotPasswordRequest; 
+use App\Http\Requests\AuthResetPasswordRequest; 
 use App\Http\Requests\AuthRegisterRequest; 
 use App\Http\Requests\AuthVerifyRequest; 
 use App\Http\Resources\UserResource; 
@@ -49,22 +54,23 @@ class AuthController extends Controller
 
 			new UserResource($user);
 			
-			return redirect('/').with('message', 'Email verificado com sucesso');
+			return response("<h1 style='color:lightGreen;' >Email verificado com sucesso</h1>", 202);
 
 		}
 
 
+		public function forgotPassword(AuthForgotPasswordRequest $request) {
 
+			$input = $request->validated();
+			return  $this->authService->forgotPassword($input['email']);
+	
+		}
 
-
-
-
-
-
-
-
-
-
+		public function resetPassword(AuthResetPasswordRequest $request) {
+			
+			$input = $request->validated();
+			return $this->authService->resetPassword($input['email'], $input['password'], $input['token']);
+		}
 
 
 

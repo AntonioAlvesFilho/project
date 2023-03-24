@@ -10,17 +10,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeEmail extends Mailable
+class ForgotPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
-		public $user;
+
 
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user)
+		/*PUBLIC TEM QUE SER DEFINIDO DENTRO DO __CONTRUCT, NÃO FORA, COMO NO TUTORIAL ANTIGO.*/
+    public function __construct(public User $user, public string $token)
     {
         $this->user = $user;
+				$this->$token = $token;
     }
 
     /**
@@ -29,7 +31,7 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Protótipo de automação de envio de E-mail',
+            subject: 'Esqueceu sua senha?',
         );
     }
 
@@ -39,12 +41,12 @@ class WelcomeEmail extends Mailable
     public function content(): Content
     {
 			return new Content(
-				view: 'emails.email',
+				view: 'emails.forgotPassword',
 				with: [
-				'verifyEmailLink'=>config('app.url') . '/api/auth/verify-email?token=' . $this->user->confirmation_token
+				'verifyForgotPasswordLink'=>config('app.url') . '/api/auth/forgot-password?token=' . $this->token
 				]
+			
 		);
-
     }
 
     /**
@@ -54,8 +56,6 @@ class WelcomeEmail extends Mailable
      */
     public function attachments(): array
     {
-        return [
-					
-				];
+        return [];
     }
 }
