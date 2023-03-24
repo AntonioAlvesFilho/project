@@ -38,9 +38,6 @@ class ResetedPasswordMail extends Mailable
     {
         return new Content(
 					view: 'emails.resetedPassword'
-					with: [
-						'teste' => $user
-					]
         );
     }
 

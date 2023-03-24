@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\UserRegistered;
 use App\Events\ForgotPassword;
+use App\Events\ResetedPassword;
 use App\Models\User;
 use App\Models\PasswordReset;
 use Illuminate\Support\Str;
@@ -112,7 +113,7 @@ class AuthService
 
 			PasswordReset::where('email', $passReset->email)->delete();
 
-			event(new ForgotPassword($user, $token));
+			event(new ResetedPassword($user, $token));
 
 			return response('success', 202);
 	}
