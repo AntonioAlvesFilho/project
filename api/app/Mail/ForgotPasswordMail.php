@@ -43,8 +43,7 @@ class ForgotPasswordMail extends Mailable
 			return new Content(
 				view: 'emails.forgotPassword',
 				with: [
-				'verifyForgotPasswordLink'=>config('app.url') . '/api/auth/forgot-password?token=' . $this->token
-				]
+				'forgotPassword'=>'http://localhost:5173/reset-password?token=' . $this->token . '&email=' . $this->user->email				]
 			
 		);
     }

@@ -71,17 +71,17 @@
               name="gender"
               v-model="genero"
               rules="required"
-              value="1"
+              value="male"
               type="radio" />
             Male
           </label>
 
           <label class="radio m-1">
-            <Field name="gender" value="2" type="radio" />
+            <Field name="gender" value="female" type="radio" />
             Female
           </label>
           <label class="radio m-1">
-            <Field name="gender" value="3" type="radio" disabled />
+            <Field name="gender" value="other" type="radio" disabled />
             Other
           </label>
           <br />
@@ -178,7 +178,9 @@ export default {
 
         axios
           .post('http://127.0.0.1:8000/api/auth/register', payload)
-          .then(() => {})
+          .then((response) => {
+            console.log(response.statusText)
+          })
           .catch((error) => {
             console.log(error)
           })

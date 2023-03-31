@@ -6,7 +6,7 @@ use App\Events\UserRegistered;
 use App\Listeners\SendWelcomeNotification;
 use App\Events\ForgotPassword;
 use App\Listeners\SendForgotPassword;
-use App\Events\ResetPassword;
+use App\Events\ResetedPassword;
 use App\Listeners\SendResetedPassword;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
 				ForgotPassword::class => [
 					SendForgotPassword::class,
 				],
-				ResetPassword::class => [
+				ResetedPassword::class => [
 					SendResetedPassword::class,
 				],
     ];

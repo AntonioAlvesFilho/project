@@ -1,9 +1,3 @@
-<h1>aaaa</h1>
+<h1>Não se preocupe</h1>
 
-{{ $token }}
-
-
-<a href="{{ $verifyForgotPasswordLink }}">verifyForgotPasswordLink</a>
-<br>
-<br><br>
-{{ $user }}
+<a href="{{ $forgotPassword }}">Clique Aqui para redefinir sua senha {{ $user->name }}</a>

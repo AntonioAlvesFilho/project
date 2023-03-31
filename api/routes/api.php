@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,13 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::get('verify-email', [AuthController::class, 'VerifyEmail']);
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+Route::put('reset-password', [AuthController::class, 'resetPassword']);
+	
+
 
 Route::group([
 
@@ -21,15 +29,9 @@ Route::group([
 	'prefix' => 'auth'
 
 ], function ($router) {
+		Route::get('me', [AuthController::class, 'me']);
 
-	Route::post('login', [AuthController::class, 'login']);
-	Route::post('register', [AuthController::class, 'register']);
-	Route::get('verify-email', [AuthController::class, 'VerifyEmail']);
-	Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
-	Route::post('reset-password', [AuthController::class, 'resetPassword']);
-	
-	Route::post('logout', [AuthController::class, 'logout']);
-	Route::post('refresh', [AuthController::class, 'refresh']);
-	Route::post('me', [AuthController::class, 'me']);
+		Route::post('logout', [AuthController::class, 'logout']);
+		Route::post('refresh', [AuthController::class, 'refresh']);
+	});
 
-});

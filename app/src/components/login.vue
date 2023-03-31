@@ -53,6 +53,7 @@
             alt="" />
         </button>
       </div>
+      <RouterLink to="/forgot-password">Forgot Password?</RouterLink>
       <div
         v-if="loginResponse.message"
         :class="`text-${loginResponse.color} rounded d-flex`">
@@ -65,7 +66,7 @@
 
 <script>
 import axios from 'axios'
-import Cookie from 'js-cookie'
+import Cookie from '../middlewares/token'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 
 export default {
@@ -119,11 +120,12 @@ export default {
             //getting JWT Token from api
             const token = `${response.data.token_type}/${response.data.access_token}`
             //setting js-Cookie to insert JWT Token as a cookie in browser
-            Cookie.set('token_todo', token, { expires: 30 })
+            Cookie.setToken(token)
             // sending the api response, with the user data like name, id, genre ETC. to vuex to show on front end
             this.$store.commit('STORE_USER', response.data.data)
             //Stop img-loading show
             this.loading.running = false
+            console.log(response.statusText)
           })
           .catch((error) => {
             const errorMessage =
@@ -133,6 +135,7 @@ export default {
             this.loginResponse.message = errorMessage
             this.loading.running = false
             console.log('login mal sucedido')
+            console.log(error)
           })
       }, 1500)
     },

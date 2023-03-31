@@ -108,7 +108,7 @@ class AuthService
 
 			}
 			$user = User::where('email', $passReset->email)->firstOrFail();
-			$user->password = $password;
+			$user->password =  bcrypt($password);
 			$user->save();
 
 			PasswordReset::where('email', $passReset->email)->delete();

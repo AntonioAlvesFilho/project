@@ -33,6 +33,8 @@
           alt="" />
       </button>
 
+
+
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2022</p>
     </Form>
   </main>
@@ -82,8 +84,7 @@ export default {
       return ''
     },
     resetResponseMessage() {
-      this.responseMessage.message = '',
-			this.responseMessage.color = ''
+      ;(this.responseMessage.message = ''), (this.responseMessage.color = '')
     }
   }
 }

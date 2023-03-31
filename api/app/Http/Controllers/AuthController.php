@@ -72,12 +72,6 @@ class AuthController extends Controller
 			return $this->authService->resetPassword($input['email'], $input['password'], $input['token']);
 		}
 
-
-
-
-
-
-
     /**
      * Get the actual authenticated User.
      *
@@ -85,7 +79,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+			return new UserResource(auth()->user());
     }
 
     /**

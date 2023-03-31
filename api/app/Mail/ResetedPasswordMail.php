@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+
+Use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,10 +18,12 @@ class ResetedPasswordMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
-    }
+  		/*PUBLIC TEM QUE SER DEFINIDO DENTRO DO __CONTRUCT, NÃO FORA, COMO NO TUTORIAL ANTIGO.*/
+			public function __construct(public User $user)
+			{
+					$this->user = $user;
+			}
+	
 
     /**
      * Get the message envelope.
@@ -27,7 +31,7 @@ class ResetedPasswordMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Password reseted successfully',
+            subject: 'Password reseted successfully'
         );
     }
 
