@@ -13,8 +13,8 @@ class MeController extends Controller
 		$this->middleware('auth:api');
 
 	}
-
-  public function index() {
+	public function idx()
+	{
 		return new UserResource(auth()->user());
 	}
 } 

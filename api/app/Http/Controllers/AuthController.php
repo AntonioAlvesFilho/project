@@ -81,6 +81,11 @@ class AuthController extends Controller
     {
 			return new UserResource(auth()->user());
     }
+		
+		public function idx()
+		{
+			return new UserResource(auth()->user());
+		}
 
     /**
      * Log the user out (Invalidate the token).
