@@ -8,6 +8,7 @@ use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
+use App\Services\UserService;
 use App\Http\Requests\AuthLoginRequest; 
 use App\Http\Requests\AuthForgotPasswordRequest; 
 use App\Http\Requests\AuthResetPasswordRequest; 
@@ -77,15 +78,11 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function update()
     {
 			return new UserResource(auth()->user());
     }
-		
-		public function idx()
-		{
-			return new UserResource(auth()->user());
-		}
+
 
     /**
      * Log the user out (Invalidate the token).

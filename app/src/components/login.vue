@@ -115,10 +115,10 @@ export default {
 
         axios
           //posting payload to api and waiting for response
-          .post('http://127.0.0.1:8000/api/auth/login', payload)
+          .post('http://127.0.0.1:8000/api/login', payload)
           .then((response) => {
             //getting JWT Token from api
-            const token = `${response.data.token_type}/${response.data.access_token}`
+            const token = `${response.data.token_type} ${response.data.access_token}`
             //setting js-Cookie to insert JWT Token as a cookie in browser
             Cookie.setToken(token)
             // sending the api response, with the user data like name, id, genre ETC. to vuex to show on front end

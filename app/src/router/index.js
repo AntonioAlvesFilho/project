@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../layouts/home-view.vue'
+import ProfileView from '../components/profile.vue'
 import LoginView from '../components/login.vue'
 import RegisterView from '../components/register.vue'
 import ForgotPasswordView from '../components/forgot-password.vue'
@@ -12,7 +13,8 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/', //colocar Authcomponent aqui
+      path: '/',
+
       children: [{ path: '', name: 'home', component: HomeView }]
     },
     {
@@ -25,14 +27,13 @@ const router = createRouter({
       children: [{ path: '', name: 'register', component: RegisterView }]
     },
     {
-      path: '/forgot-password', //colocar Authcomponent aqui
-      beforeEnter: Guard.redirectIfNotAuthenticated,
+      path: '/forgot-password',
       children: [
         { path: '', name: 'forgot-password', component: ForgotPasswordView }
       ]
     },
     {
-      path: '/reset-password', //colocar Authcomponent aqui
+      path: '/reset-password',
       children: [
         { path: '', name: 'reset-password', component: ResetPasswordView }
       ]
@@ -41,6 +42,11 @@ const router = createRouter({
       path: '/content-dummy', //colocar Authcomponent aqui
       beforeEnter: Guard.redirectIfNotAuthenticated,
       children: [{ path: '', name: 'content-dummy', component: ContentView }]
+    },
+    {
+      path: '/profile', //colocar Authcomponent aqui
+      beforeEnter: Guard.redirectIfNotAuthenticated,
+      children: [{ path: '', name: 'profile', component: ProfileView }]
     }
   ]
 })

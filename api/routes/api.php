@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,14 +22,17 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
 
+
 Route::group([
 
 	'middleware' => 'api',
 	'prefix' => 'auth'
 
 ], function ($router) {
-		Route::get('me', [AuthController::class, 'me']);
-		Route::get('idx', [AuthController::class, 'idx']);
+		Route::prefix('idx')->group(function() {
+			Route::get('', [MeController::class, 'idx']);
+			Route::put('', [MeController::class, 'update']);
+		});
 
 		Route::post('logout', [AuthController::class, 'logout']);
 		Route::post('refresh', [AuthController::class, 'refresh']);

@@ -112,7 +112,7 @@ export default {
 
         axios
           //posting payload to api and waiting for response
-          .post('http://127.0.0.1:8000/api/auth/reset-password', payload)
+          .post('http://127.0.0.1:8000/api/reset-password', payload)
           .then((response) => {
             this.loading.running = false
             console.log(response.statusText)
