@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Profile</h1>
-    <P>Name: {{ name }}</P>
+    <p>Name: {{ name }}</p>
     <p>Email: {{ email }}</p>
     <p>Age: {{ age }}</p>
     <p>Gender: {{ gender }}</p>

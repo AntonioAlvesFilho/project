@@ -1,6 +1,7 @@
 <template>
   <main class="form-signin w-100 m-auto">
     <h1 class="h3 mb-4 fw-normal text-center">Please sign in</h1>
+    implemet Vue-notification
 
     <Form ref="loginValidate" v-on:submit="login()">
       <div class="form-floating mb-3 align-center">
@@ -49,7 +50,8 @@
           <img
             v-else-if="loading.running"
             style="color: white"
-            src="loading.png"
+            width="50"
+            src="802.svg"
             alt="" />
         </button>
       </div>

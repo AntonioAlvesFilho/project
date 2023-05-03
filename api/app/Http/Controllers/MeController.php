@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\MeUpdateRequest;
 use App\Services\UserService;
 
 class MeController extends Controller
 {
 
-	public function __construct(UserService $userService) {
-		$this->userService = $userService;
+	public function __construct() {
 
 		$this->middleware('auth:api');
 
 	}
+	
 	public function idx()
 	{
 		return new UserResource(auth()->user());
 	}
 
-	public function update()
+	public function update(MeUpdateRequest $request)
 	{
-		
-	return $this->userService->update();
+		$input = $request->validated();
+		$user =	(new UserService())->update(auth()->user(), $input);
+		return new UserResource($user);
 	}
 } 
