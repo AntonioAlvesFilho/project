@@ -59,7 +59,6 @@ class AuthController extends Controller
 
 		}
 
-
 		public function forgotPassword(AuthForgotPasswordRequest $request) {
 
 			$input = $request->validated();

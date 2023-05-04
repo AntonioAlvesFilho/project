@@ -22,10 +22,8 @@ class MeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-						'id' => 'required|integer',
             'name' => 'required|string',
-						'email' => 'required|string', 
-						'data_nascimento' => 'required|string',
+						'email' => 'string',
 						'password' => 'required|string|min:5'
         ];
     }
