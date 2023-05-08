@@ -19,7 +19,7 @@ export default {
 
     if (token) {
       await axios
-        .get('/api/auth/idx')
+        .get('/api/auth/index')
         .then((response) => {
           if (!store?.state?.user?.id) {
             store.commit('STORE_USER', response.data.data)

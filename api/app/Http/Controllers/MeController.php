@@ -16,7 +16,7 @@ class MeController extends Controller
 
 	}
 	
-	public function idx()
+	public function index()
 	{
 		return new UserResource(auth()->user());
 	}

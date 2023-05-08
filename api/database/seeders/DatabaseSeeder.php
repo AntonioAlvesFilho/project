@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-             'name' => 'Antonio',
-             'email' => 'Antonio@Antonio.com',
+             'name' => 'row',
+             'email' => 'row@1.com',
          ]);
 
 				$this->call(TodoSeeder::class);

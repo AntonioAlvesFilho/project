@@ -51,16 +51,11 @@
             v-else-if="loading.running"
             style="color: white"
             width="50"
-            src="802.svg"
+            src="../assets/802.svg"
             alt="" />
         </button>
       </div>
       <RouterLink to="/forgot-password">Forgot Password?</RouterLink>
-      <div
-        v-if="loginResponse.message"
-        :class="`text-${loginResponse.color} rounded d-flex`">
-        <h5>{{ loginResponse.message }}</h5>
-      </div>
       <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
     </Form>
   </main>
@@ -70,6 +65,8 @@
 import axios from 'axios'
 import Cookie from '../middlewares/token'
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
 
 export default {
   name: 'Login',
@@ -90,7 +87,6 @@ export default {
 
   methods: {
     login() {
-      this.resetErrorMessage()
       //replace the "login" with a loading img
       this.loading.running = true
       //delay setted for visualization
@@ -128,22 +124,21 @@ export default {
             //Stop img-loading show
             this.loading.running = false
             console.log(response.statusText)
+            $toast.success('Logged successfully', {
+              position: 'top-right'
+            })
           })
           .catch((error) => {
             const errorMessage =
               // A login authentication error is expected here, but if is not what is returned for some reason, like an axios url error, it returns a generic error (unexpected error) instead of crashing the aplication.
               error?.response?.data?.message || 'Unexpected Error'
-            this.loginResponse.color = 'danger'
             this.loginResponse.message = errorMessage
             this.loading.running = false
-            console.log('login mal sucedido')
-            console.log(error)
+            $toast.error(errorMessage, {
+              position: 'bottom-right'
+            })
           })
       }, 1500)
-    },
-
-    resetErrorMessage() {
-      return (this.loginResponse.message = '')
     }
   }
 }

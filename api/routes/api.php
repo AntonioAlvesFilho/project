@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MeController;
+use App\Http\Controllers\TodoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,9 +30,16 @@ Route::group([
 	'prefix' => 'auth'
 
 ], function ($router) {
-		Route::prefix('idx')->group(function() {
-			Route::get('', [MeController::class, 'idx']);
+		Route::prefix('index')->group(function() {
+			Route::get('', [MeController::class, 'index']);
 			Route::put('', [MeController::class, 'update']);
+		});
+
+		Route::prefix('todos')->group(function() {
+			Route::get('', [TodoController::class, 'index']);
+			Route::put('{todo}', [TodoController::class, 'update']);
+			Route::post('', [TodoController::class, 'store']);
+			Route::delete('{todo}', [TodoController::class, 'destroy']);
 		});
 
 		Route::post('logout', [AuthController::class, 'logout']);
