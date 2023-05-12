@@ -14,20 +14,12 @@
     <div>
       <ul class="list-group">
         <h2 class="text-center">Lista</h2>
-        <div v-for="todo in this.todos" :key="todo.id">
-          <li class="list-group-item">
-            {{ todo.id }}
-            <input
-              v-model="todo.label"
-              type="text"
-              @keyup.enter="updateTodo(todo)" />
-            <button v-on:click="deleteTodo(todo)">del</button>
-          </li>
-        </div>
+        <TodoCard v-for="todo in this.todos" :key="todo.id" :todo="todo" />
       </ul>
       <div class="text-center" v-if="loading.ico">
         <img src="../assets/circle.gif" alt="" />
       </div>
+
       <Form class="text-center" ref="loginValidate" v-on:submit="addTodo()">
         Adicionar Nova Tarefa
         <Field
@@ -42,11 +34,17 @@
       </Form>
     </div>
   </div>
+
+  <form method="post">
+    <b-button>Button</b-button>
+    <b-button variant="danger">Button</b-button>
+  </form>
 </template>
 
 <script>
 import axios from 'axios'
 import { Form, Field } from 'vee-validate'
+import TodoCard from './cards/TodoCard.vue'
 
 export default {
   data() {
@@ -63,6 +61,7 @@ export default {
       todo: ''
     }
   },
+  components: { Form, Field, TodoCard },
   created() {
     const user = this.$store.state.user.user
     this.name = user.name
@@ -78,7 +77,10 @@ export default {
         axios
           .get('/api/auth/todos')
           .then((response) => {
-            this.todos = response.data.data
+            this.todos = response.data.data.map((o) => ({
+              ...o,
+              state: 'show'
+            }))
             console.log(response)
             this.loading.ico = false
           })
@@ -101,35 +103,7 @@ export default {
         .catch((response) => {
           console.log(response)
         })
-    },
-    updateTodo(todo) {
-      const payLoad = {
-        label: todo.label
-      }
-      axios
-        .put(`api/auth/todos/${todo.id}`, payLoad)
-        .then((response) => {
-          console.log(response)
-          this.getTodos()
-          this.loading.ico = true
-        })
-        .catch((response) => {
-          console.log(response)
-        })
-    },
-    deleteTodo(todo) {
-      axios
-        .delete(`api/auth/todos/${todo.id}`)
-        .then((response) => {
-          console.log(response)
-          this.getTodos()
-          this.loading.ico = true
-        })
-        .catch((response) => {
-          console.log(response)
-        })
     }
-  },
-  components: { Form, Field }
+  }
 }
 </script>

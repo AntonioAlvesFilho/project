@@ -1,6 +1,8 @@
 import Cookie from './token'
 import axios from 'axios'
 import store from '../store'
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
 
 export default {
   redirectIfAuthenticated(to, from, next) {
@@ -9,6 +11,9 @@ export default {
 
     if (token) {
       n = { name: 'home' }
+      $toast.info('Already Logged In', {
+        position: 'top-right'
+      })
     }
 
     next(n)
@@ -27,10 +32,14 @@ export default {
         })
         .catch(() => {
           Cookie.removeToken()
+          console.log('teste')
           n = { name: 'login' }
         })
     } else {
       n = { name: 'login' }
+      $toast.info('Login First', {
+        position: 'top-right'
+      })
     }
 
     next(n)
