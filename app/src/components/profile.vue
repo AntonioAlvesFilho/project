@@ -34,11 +34,6 @@
       </Form>
     </div>
   </div>
-
-  <form method="post">
-    <b-button>Button</b-button>
-    <b-button variant="danger">Button</b-button>
-  </form>
 </template>
 
 <script>
