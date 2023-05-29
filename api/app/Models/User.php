@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Models\Todo;
+use App\Models\TodoTask;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -71,4 +73,9 @@ class User extends Authenticatable implements JWTSubject
 		public function todos() {
 			return $this->hasMany(Todo::class);
 		}
+
+		public function tasks(): HasManyThrough
+    {
+        return $this->hasManyThrough(TodoTask::class, Todo::class);
+    }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TodoTaskController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,6 +41,13 @@ Route::group([
 			Route::put('{todo}', [TodoController::class, 'update']);
 			Route::post('', [TodoController::class, 'store']);
 			Route::delete('{todo}', [TodoController::class, 'destroy']);
+		});
+		
+		Route::prefix('todo-tasks')->group(function() {
+			Route::get('{id?}', [TodoTaskController::class, 'index']);
+			Route::put('{todo}', [TodoTaskController::class, 'update']);
+			Route::post('', [TodoTaskController::class, 'store']);
+			Route::delete('{todo}', [TodoTaskController::class, 'destroy']);
 		});
 
 		Route::post('logout', [AuthController::class, 'logout']);

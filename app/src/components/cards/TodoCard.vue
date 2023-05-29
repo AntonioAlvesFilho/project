@@ -17,15 +17,24 @@
       <button v-on:click.stop.prevent="deleteTodo(todo)">Deleter</button>
       <button v-on:click.stop.prevent="changeStateToShow()">Cancel</button>
     </div>
+    <button v-on:click.stop.prevent="getTasks(todo)">button</button>
+    <TaskCard v-for="task in this.tasks" :key="task.id" :task="task" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import TaskCard from './TaskCard.vue'
 export default {
   name: 'TodoCard',
+  components: {
+    TaskCard
+  },
   data() {
-    return {}
+    return {
+      tasks: [],
+      task: ''
+    }
   },
   props: {
     todo: {
@@ -33,6 +42,7 @@ export default {
       default: () => ({})
     }
   },
+  created() {},
   methods: {
     updateTodo(todo) {
       const payLoad = {
@@ -67,6 +77,19 @@ export default {
     },
     changeStateToDeleting() {
       this.todo.state = 'delete'
+    },
+    getTasks(todo) {
+      setTimeout(() => {
+        axios
+          .get(`/api/auth/todo-tasks?id=${todo.id}`)
+          .then((response) => {
+            this.tasks = response.data.data
+            console.log(response)
+          })
+          .catch((response) => {
+            console.log(response)
+          })
+      }, 2000)
     }
   },
   computed: {
